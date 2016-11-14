@@ -28,7 +28,7 @@ var UserViewModel = (function (viewModel, api) {
 
     function appendLinks(self, linksBlockClass, callback, urlParam, nameParam) {
         var user = self.user;
-        var $followersListElement = self.userBlock.find(`.${linksBlockClass}`)[0];
+        var $followersListElement = self.userBlock.find(`.${linksBlockClass}`);
         callback(user).then(function (values) {
             for (let i = 0; i < values.length; ++i) {
                 var value = values[i];
@@ -41,7 +41,7 @@ var UserViewModel = (function (viewModel, api) {
                 $followerElement.text(name);
                 $followerElement.attr('href', url);
                 $followerElement.addClass('list-group-item');
-                $followersListElement.append($followerElement[0]);
+                $followersListElement.append($followerElement);
 
             }
         }, function (error) {

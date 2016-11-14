@@ -4,13 +4,20 @@
 
 var app = (function (api) {
 
-    let userList = document.getElementById('userList');
+    let userList = $('#userList');
+
+    function createUserWrapper() {
+        var $wrapper = $('<div>');
+        userList.append($wrapper);
+        return $wrapper;
+    }
 
     function showUsers(users) {
         for (let i = 0; i < users.length; ++i) {
             let userView = Object.create(UserViewModel);
+            let $userWrapper = createUserWrapper();
             userView.init(users[i]).then(function (value) {
-                userList.append(userView.getUserBlock()[0]);
+                $userWrapper.append(userView.getUserBlock());
             }, function (error) {
 
             });

@@ -4,7 +4,7 @@
 
 var app = (function (api) {
 
-    var userList = document.getElementById('userList');
+    let userList = document.getElementById('userList');
 
     function showUsers(users) {
         for (let i = 0; i < users.length; ++i) {
@@ -21,11 +21,10 @@ var app = (function (api) {
         userList: function () {
             api.getUsers()
                 .then(function (users) {
-                        showUsers(users);
-                    },
-                    function (error) {
-                        alert(error);
-                    });
+                    showUsers(users);
+                }, function (error) {
+                    alert(error);
+                });
         },
         init: function () {
             this.userList();

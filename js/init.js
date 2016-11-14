@@ -10,7 +10,7 @@ var app = (function (api) {
         for (let i = 0; i < users.length; ++i) {
             let userView = Object.create(UserViewModel);
             userView.init(users[i]).then(function (value) {
-                userList.appendChild(userView.getUserBlock());
+                userList.append(userView.getUserBlock()[0]);
             }, function (error) {
 
             });

@@ -6,18 +6,15 @@ window.app.api = (function () {
 
     function sendRequest(url) {
         return new Promise(function (resolve, reject) {
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = () => {
-                if (xmlHttp.readyState === XMLHttpRequest.DONE) {
-                    if (xmlHttp.status !== 200) {
-                        reject(`${xmlHttp.status} ${xmlHttp.statusText}`);
-                    } else {
-                        resolve(JSON.parse(xmlHttp.responseText));
-                    }
+            $.ajax({
+                url: url,
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function (xhr) {
+                    reject(xhr);
                 }
-            };
-            xmlHttp.open("GET", url, true);
-            xmlHttp.send();
+            });
         });
     }
 
@@ -25,7 +22,7 @@ window.app.api = (function () {
         return sendRequest(url);
     }
 
-    var publicApi = {
+    return {
         getUsers: function () {
             return sendRequest('https://api.github.com/users');
         },
@@ -50,8 +47,5 @@ window.app.api = (function () {
         getUserRepos: function (user) {
             return getUserLinks(user['repos_url']);
         }
-
     };
-
-    return publicApi;
 })();

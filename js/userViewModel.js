@@ -6,28 +6,29 @@ var UserViewModel = (function (viewModel, api) {
 
     var templateOptionGlobal = {};
 
-    function showUser(userPartialView, user) {
+    function showUser($userPartialView, user) {
         var templateClassOption = templateOptionGlobal.classNames;
-        userPartialView.getElementsByClassName(templateClassOption['login'])[0].innerHTML = user['login'];
-        userPartialView.getElementsByClassName(templateClassOption['avatar'])[0].src = user['avatar_url'];
-        user['site_admin'] ? userPartialView.getElementsByClassName(templateClassOption['admin'])[0].innerHTML = "Admin" : null;
+        $userPartialView.find(`.${templateClassOption['login']}`)[0].innerHTML = user['login'];
+        $userPartialView.find(`.${templateClassOption['avatar']}`)[0].src = user['avatar_url'];
+        user['site_admin'] ? $userPartialView.find(`.${templateClassOption['admin']}`)[0].innerHTML = "Admin" : null;
     }
 
-    function toggle(element) {
+    function toggle($element) {
+        debugger;
         var className = 'hidden';
-        var hasClass = element.classList.contains(className);
+        var hasClass = $element.hasClass(className);
         if (hasClass === true) {
-            element.classList.remove(className);
+            $element.removeClass(className);
             return true;
         } else {
-            element.classList.add(className);
+            $element.addClass(className);
             return false;
         }
     }
 
     function appendLinks(self, linksBlockClass, callback, urlParam, nameParam) {
         var user = self.user;
-        var followersListElement = self.userBlock.getElementsByClassName(linksBlockClass)[0];
+        var followersListElement = self.userBlock.find(`.${linksBlockClass}`)[0];
         callback(user).then(function (values) {
             for (let i = 0; i < values.length; ++i) {
                 var value = values[i];
@@ -36,12 +37,11 @@ var UserViewModel = (function (viewModel, api) {
 
                 var name = nameParam ? value[nameParam] : value['login'];
 
-                var followerElement = document.createElement('A');
-                followerElement.innerHTML = name;
-                followerElement.href = url;
-                followerElement.setAttribute('target', '_blank');
-                followerElement.classList.add('list-group-item');
-                followersListElement.appendChild(followerElement);
+                var $followerElement = $('<a target="_blank">');
+                $followerElement.text(name);
+                $followerElement.attr('href', url);
+                $followerElement.addClass('list-group-item');
+                followersListElement.append($followerElement[0]);
 
             }
         }, function (error) {
@@ -60,8 +60,8 @@ var UserViewModel = (function (viewModel, api) {
             self.readPartial('partial/user.html')
                 .then(function (htmlText) {
 
-                    var html = document.createElement('BODY');
-                    html.innerHTML = htmlText;
+                    var html = $('<body>');
+                    html.html(htmlText);
                     self.htmlDocument = html;
 
                     showUser(html, self.user);
@@ -131,21 +131,21 @@ var UserViewModel = (function (viewModel, api) {
         return this;
     };
 
-    UserViewModel.getUserBlock = function (document, number) {
+    UserViewModel.getUserBlock = function ($document, number) {
         if (!this.userBlock) {
-            document = document ? document : this.htmlDocument;
+            $document = $document ? $document : this.htmlDocument;
             number = number ? number : 0;
-            this.userBlock = document.getElementsByClassName(templateOptionGlobal.classNames['mainBlock'])[number];
+            this.userBlock = $($document.find(`.${templateOptionGlobal.classNames['mainBlock']}`)[number]);
         }
 
         return this.userBlock;
     };
 
-    UserViewModel.onClickHead = function (element) {
+    UserViewModel.onClickHead = function ($element) {
         var self = this;
-        element = element.getElementsByClassName(templateOptionGlobal.classNames['headingBlock'])[0];
-        element.onclick = function () {
-            var show = self.toggleBody(element);
+        $element = $($element.find(`.${templateOptionGlobal.classNames['headingBlock']}`)[0]);
+        $element.on('click', function (value) {
+            var show = self.toggleBody($element);
             if (show && !self.isUserLoaded) {
                 api.getUser(self.user).then(function (val) {
                     self.user = val;
@@ -155,7 +155,7 @@ var UserViewModel = (function (viewModel, api) {
 
                 });
             }
-        };
+        });
     };
 
     UserViewModel.addAdditionalInformation = function () {
@@ -169,21 +169,22 @@ var UserViewModel = (function (viewModel, api) {
         this.appendUserRepos();
     };
 
-    UserViewModel.toggleBody = function (element) {
-        return toggle(element.nextElementSibling);
+    UserViewModel.toggleBody = function ($element) {
+        return toggle($element.next());
     };
 
     UserViewModel.appendUserName = function () {
-        this.userBlock.getElementsByClassName(templateOptionGlobal.classNames['userName'])[0].innerHTML = this.user['name'];
+        this.userBlock.find(`.${templateOptionGlobal.classNames['userName']}`).text(this.user['name']);
+        return this;
 
     };
 
     UserViewModel.appendUserEmail = function () {
-        var emailElement = this.userBlock.getElementsByClassName(templateOptionGlobal.classNames['userEmail'])[0];
+        var $emailElement = this.userBlock.find(`.${templateOptionGlobal.classNames['userEmail']}`);
         var email = this.user['email'];
         if (email) {
-            emailElement.innerHTML = `(${email})`;
-            emailElement.href = `mailto:${email}`;
+            $emailElement.text(`(${email})`);
+            $emailElement.attr('href', `mailto:${email}`);
         }
     };
 

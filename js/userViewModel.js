@@ -8,10 +8,10 @@ var UserViewModel = (function (viewModel, api) {
 
     function showUser($userPartialView, user) {
         var templateClassOption = templateOptionGlobal.classNames;
-        $userPartialView.find(`.${templateClassOption['login']}`).html(user['login']);
-        $userPartialView.find(`.${templateClassOption['avatar']}`).attr('src', user['avatar_url']);
-        $userPartialView.find(`.${templateClassOption['avatar']}`).attr('id', user['id']);
-        user['site_admin'] ? $userPartialView.find(`.${templateClassOption['admin']}`).html("Admin") : null;
+        $userPartialView.find(`.${templateClassOption['login']}`).html( user['login']);
+        $userPartialView.find(`.${templateClassOption['avatar']}`).attr('src',user['avatar_url']);
+        $userPartialView.find(`.${templateClassOption['avatar']}`).attr('id',user['id']);
+        user['site_admin'] ? $userPartialView.find(`.${templateClassOption['admin']}`).html( "Admin") : null;
     }
 
     function toggle($element) {

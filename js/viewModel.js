@@ -3,10 +3,10 @@
  */
 
 window.app.viewModel = (function () {
-    var ViewModel = {
+    return {
         readPartial: function (file) {
             return new Promise(function (resolve, reject) {
-                $.ajax({
+                $.get({
                     url: file,
                     success: function (response) {
                         resolve(response);
@@ -18,6 +18,4 @@ window.app.viewModel = (function () {
             });
         }
     };
-
-    return ViewModel;
 })();

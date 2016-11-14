@@ -8,13 +8,13 @@ var UserViewModel = (function (viewModel, api) {
 
     function showUser($userPartialView, user) {
         var templateClassOption = templateOptionGlobal.classNames;
-        $userPartialView.find(`.${templateClassOption['login']}`)[0].innerHTML = user['login'];
-        $userPartialView.find(`.${templateClassOption['avatar']}`)[0].src = user['avatar_url'];
-        user['site_admin'] ? $userPartialView.find(`.${templateClassOption['admin']}`)[0].innerHTML = "Admin" : null;
+        $userPartialView.find(`.${templateClassOption['login']}`).html(user['login']);
+        $userPartialView.find(`.${templateClassOption['avatar']}`).attr('src', user['avatar_url']);
+        $userPartialView.find(`.${templateClassOption['avatar']}`).attr('id', user['id']);
+        user['site_admin'] ? $userPartialView.find(`.${templateClassOption['admin']}`).html("Admin") : null;
     }
 
     function toggle($element) {
-        debugger;
         var className = 'hidden';
         var hasClass = $element.hasClass(className);
         if (hasClass === true) {
@@ -28,7 +28,7 @@ var UserViewModel = (function (viewModel, api) {
 
     function appendLinks(self, linksBlockClass, callback, urlParam, nameParam) {
         var user = self.user;
-        var followersListElement = self.userBlock.find(`.${linksBlockClass}`)[0];
+        var $followersListElement = self.userBlock.find(`.${linksBlockClass}`)[0];
         callback(user).then(function (values) {
             for (let i = 0; i < values.length; ++i) {
                 var value = values[i];
@@ -41,7 +41,7 @@ var UserViewModel = (function (viewModel, api) {
                 $followerElement.text(name);
                 $followerElement.attr('href', url);
                 $followerElement.addClass('list-group-item');
-                followersListElement.append($followerElement[0]);
+                $followersListElement.append($followerElement[0]);
 
             }
         }, function (error) {
@@ -143,7 +143,7 @@ var UserViewModel = (function (viewModel, api) {
 
     UserViewModel.onClickHead = function ($element) {
         var self = this;
-        $element = $($element.find(`.${templateOptionGlobal.classNames['headingBlock']}`)[0]);
+        $element = $element.find(`.${templateOptionGlobal.classNames['headingBlock']}`);
         $element.on('click', function (value) {
             var show = self.toggleBody($element);
             if (show && !self.isUserLoaded) {

@@ -5,17 +5,7 @@
 window.app.api = (function () {
 
     function sendRequest(url) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                url: url,
-                success: function (response) {
-                    resolve(response);
-                },
-                error: function (xhr) {
-                    reject(xhr);
-                }
-            });
-        });
+        return $.ajax({url: url});
     }
 
     function getUserLinks(url) {

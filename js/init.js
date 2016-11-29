@@ -2,8 +2,7 @@
  * Created by t.blindaruk on 11.11.16.
  */
 
-var app = (function (api) {
-
+define('init',['api','jquery','userViewModel'],function (api,$,UserViewModel) {
     let userList = $('#userList');
 
     function createUserWrapper() {
@@ -39,4 +38,4 @@ var app = (function (api) {
     };
 
     return Object.create(PublicApi);
-})(window.app.api);
+});

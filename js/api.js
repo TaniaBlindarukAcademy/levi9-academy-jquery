@@ -2,7 +2,7 @@
  * Created by tania on 10.11.16.
  */
 
-window.app.api = (function () {
+define('api'['jquery'],function ($) {
 
     function sendRequest(url) {
         return $.ajax({url: url});
@@ -38,4 +38,4 @@ window.app.api = (function () {
             return getUserLinks(user['repos_url']);
         }
     };
-})();
+});

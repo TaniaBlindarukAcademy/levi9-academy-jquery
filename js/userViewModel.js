@@ -1,7 +1,7 @@
 /**
  * Created by t.blindaruk on 11.11.16.
  */
-define('userViewModel', ['viewModel', 'api', 'jquery'],
+define(['viewModel', 'api', 'jquery'],
     function (viewModel, api, $) {
         var templateOptionGlobal = {};
 

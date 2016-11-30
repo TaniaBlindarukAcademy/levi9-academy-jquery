@@ -2,7 +2,7 @@
  * Created by t.blindaruk on 11.11.16.
  */
 
-define(['api', 'jquery', 'userViewModel'], function (api, $, UserViewModel) {
+define('init',['api', 'jquery', 'userViewModel'], function (api, $, UserViewModel) {
     let userList = $('#userList');
 
     function createUserWrapper() {

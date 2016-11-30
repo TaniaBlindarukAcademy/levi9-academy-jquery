@@ -1,8 +1,8 @@
 /**
  * Created by t.blindaruk on 11.11.16.
  */
-define(['viewModel', 'api', 'jquery'],
-    function (viewModel, api, $) {
+define('userViewModel',[ 'api', 'jquery', "text!../partial/user.html"],
+    function ( api, $,template) {
         var templateOptionGlobal = {};
 
         function showUser($userPartialView, user) {
@@ -43,7 +43,7 @@ define(['viewModel', 'api', 'jquery'],
             })
         }
 
-        var UserViewModel = Object.create(viewModel);
+        var UserViewModel = {};
 
         UserViewModel.init = function (user, templateOption) {
             var self = this;
@@ -51,22 +51,16 @@ define(['viewModel', 'api', 'jquery'],
             self.htmlDocument = false;
             self.initTemplateOption(templateOption);
             return new Promise(function (resolve, reject) {
-                self.readPartial('partial/user.html')
-                    .then(function (htmlText) {
 
-                        var html = $('<body>');
-                        html.html(htmlText);
+                        var html = $('<body/>');
+                        html.html(template);
                         self.htmlDocument = html;
 
                         showUser(html, self.user);
                         self.onClickHead(self.getUserBlock());
 
                         resolve(true);
-                    }, function (error) {
-                        reject(error);
-                        alert(error);
-                    });
-            })
+            });
         };
 
         UserViewModel.initTemplateOption = function (templateOption) {

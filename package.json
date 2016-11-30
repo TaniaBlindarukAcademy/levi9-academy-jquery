@@ -18,6 +18,7 @@
   "homepage": "https://github.com/TaniaBlindarukAcademy/levi9-academy-jquery#readme",
   "dependencies": {
     "jquery": "^3.1.1",
-    "requirejs": "^2.3.2"
+    "requirejs": "^2.3.2",
+    "text": "requirejs/text"
   }
 }

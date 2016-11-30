@@ -2,7 +2,7 @@
  * Created by tania on 10.11.16.
  */
 
-define(['jquery'], function ($) {
+define('api',['jquery'], function ($) {
 
     function sendRequest(url) {
         return $.ajax({url: url});

@@ -6,10 +6,7 @@ requirejs.config({
     baseUrl: '/levi9-academy-jquery/js',
     paths: {
         jquery: '../node_modules/jquery/dist/jquery.min',
-        api: 'api',
-        userViewModel: 'userViewModel',
-        viewModel:'viewModel',
-        init: 'init'
+        text: '../node_modules/text/text'
     }
 });
 

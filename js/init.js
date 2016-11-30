@@ -2,19 +2,19 @@
  * Created by t.blindaruk on 11.11.16.
  */
 
-define('init',['api', 'jquery', 'userViewModel'], function (api, $, UserViewModel) {
+define('init', ['api', 'jquery', 'userViewModel'], function (api, $, UserViewModel) {
     let userList = $('#userList');
 
-    function createUserWrapper() {
+    function _createUserWrapper() {
         var $wrapper = $('<div>');
         userList.append($wrapper);
         return $wrapper;
     }
 
-    function showUsers(users) {
+    function _showUsers(users) {
         for (let i = 0; i < users.length; ++i) {
             let userView = Object.create(UserViewModel);
-            let $userWrapper = createUserWrapper();
+            let $userWrapper = _createUserWrapper();
             userView.init(users[i]).then(function (value) {
                 $userWrapper.append(userView.getUserBlock());
             }, function (error) {
@@ -23,19 +23,16 @@ define('init',['api', 'jquery', 'userViewModel'], function (api, $, UserViewMode
         }
     }
 
-    var PublicApi = {
-        userList: function () {
-            api.getUsers()
-                .then(function (users) {
-                    showUsers(users);
-                }, function (error) {
-                    alert(error);
-                });
-        },
-        init: function () {
-            this.userList();
-        }
-    };
+    function init() {
+        return api.getUsers()
+            .then(function (users) {
+                _showUsers(users);
+            }, function (error) {
+                alert(error);
+            });
+    }
 
-    return Object.create(PublicApi);
+    return {
+        init: init
+    };
 });

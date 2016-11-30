@@ -19,6 +19,10 @@
   "dependencies": {
     "jquery": "^3.1.1",
     "requirejs": "^2.3.2",
+    "requirejs-babel": "0.0.9",
     "text": "requirejs/text"
+  },
+  "devDependencies": {
+    "gulp-requirejs": "^0.3.0"
   }
 }

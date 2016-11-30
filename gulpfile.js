@@ -6,9 +6,10 @@ var gulp = require('gulp');
 var requirejsOptimize = require('gulp-requirejs-optimize');
 var watch = require('gulp-watch');
 var batch = require('gulp-batch');
+var uglify = require('gulp-uglify');
 
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['scripts','watch']);
 
 gulp.task('scripts', function () {
     return gulp.src('app.js')

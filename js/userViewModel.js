@@ -2,7 +2,7 @@
  * Created by t.blindaruk on 11.11.16.
  */
 
-define('userViewModel', ['api', 'jquery', "text!../partial/user.html"],
+define(['./api', 'jquery', "text!partial/user.html"],
     function (api, $, template) {
         var templateOptionGlobal = {};
 

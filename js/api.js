@@ -1,10 +1,9 @@
 /**
- * Created by tania on 10.11.16.
+ * Created by tania on 10.11.16
  */
 
-define('api', ['jquery'], function ($) {
+define(['jquery'], function ($) {
 
-    'use strict';
 
     function _sendRequest(url) {
         return $.ajax({url: url});

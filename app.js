@@ -3,17 +3,14 @@
  */
 
 requirejs.config({
-    baseUrl: '/levi9-academy-jquery/js',
+    baseUrl: '/levi9-academy-jquery',
     paths: {
-        jquery: '../node_modules/jquery/dist/jquery.min',
-        text: '../node_modules/text/text',
-        es6: '../node_modules/requirejs-babel/es6',
-        babel: '../node_modules/requirejs-babel/babel-5.8.34.min'
-
+        jquery: './node_modules/jquery/dist/jquery.min',
+        text: './node_modules/text/text'
     }
 });
 
 
-require(['init'],function (init) {
+require(['js/init'],function (init) {
     init.init();
 });
